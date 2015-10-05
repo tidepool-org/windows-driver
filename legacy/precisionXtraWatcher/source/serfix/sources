@@ -1,0 +1,31 @@
+!IF "$(DDKBUILDENV)" == "chk"
+# RJM: define this to build test app version
+#STANDALONE = 1
+STANDALONE = 0
+!ELSE
+STANDALONE = 0
+!ENDIF
+
+!IF "$(STANDALONE)" == "1"
+TARGETNAME=serfix
+TARGETTYPE=PROGRAM
+C_DEFINES=$(C_DEFINES) /DSTANDALONE
+!ELSE
+TARGETNAME=serfixlib
+TARGETTYPE=LIBRARY
+!ENDIF
+
+# RJM: need cdecl calling convention
+# 386_STDCALL=0
+
+C_DEFINES=$(C_DEFINES) /DMANUAL
+
+INCLUDES=.;..\Inc
+
+SOURCES= \
+	main.c \
+	serfix.c 
+
+UMTYPE=console
+UMBASE=0x01000000
+USE_MSVCRT=1

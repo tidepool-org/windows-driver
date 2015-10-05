@@ -1,0 +1,56 @@
+
+# RJM: enable to initialize com port from the service
+# INIT_COM = 0
+INIT_COM = 1
+
+TARGETNAME=tidepool_service
+TARGETTYPE=PROGRAM
+
+INCLUDES= \
+	..\inc; \
+	..\serfix
+
+# C_DEFINES=$(C_DEFINES) /D_NT_TARGET_VERSION=$(_NT_TARGET_VERSION)
+
+!IF "$(INIT_COM)" == "1"
+C_DEFINES=$(C_DEFINES) /DINIT_COM_FROM_SERVICE
+!ENDIF
+
+# RJM: linker options
+USE_INCREMENTAL_LINKING=1
+# RJM: no debug
+# C_DEFINES=$(C_DEFINES) /OPT:REF
+
+SOURCES= \
+	igx_service.c \
+	igx_service.rc
+
+TARGETLIBS= \
+	$(SDK_LIB_PATH)\setupapi.lib
+
+TARGETLIBS= \
+ 	$(TARGETLIBS) \
+	..\serfix\obj$(BUILD_ALT_DIR)\*\serfixlib.lib
+
+!IF "$(DDKBUILDENV)" == "chk"
+TARGETNAME=DebugApp
+UMTYPE=windows
+# UMENTRY=main
+UMENTRY=winmain
+# Only VS Debug Build will build a windows application.
+# DDK Build will always build a service application
+# RJM: show the window for checked build
+C_DEFINES=$(C_DEFINES) -DSHOW_WINDOW 
+!ENDIF
+
+!IF "$(DDKBUILDENV)" == "fre"
+TARGETNAME=tidepool_service
+UMTYPE=windows
+UMENTRY=main
+# RJM: build a service for free
+C_DEFINES=$(C_DEFINES) -DIGX_SERVICE_APPLICATION
+!ENDIF
+
+UMBASE=0x01000000
+USE_MSVCRT=1
+
