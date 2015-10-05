@@ -21,7 +21,7 @@ ArchitecturesInstallIn64BitMode=x64
 ; Note: We don't set ProcessorsAllowed because we want this
 ; installation to run on all architectures (including Itanium,
 ; since it's capable of running 32-bit code too).
-
+LicenseFile=tidepool_licence.rtf
 
 [Files]
 ; Place all x64 files here
