@@ -26,7 +26,7 @@ DriverPackageDisplayName=%DESC%
 Class=Ports
 ClassGuid={4D36E978-E325-11CE-BFC1-08002BE10318}
 Provider=%Provider%
-DriverVer=10/08/2015,0.4.0.0
+DriverVer=24/11/2015,0.5.0.0
 CatalogFile=tidepoolvcp.cat
 
 ; ================= Device section =====================
@@ -37,6 +37,7 @@ CatalogFile=tidepoolvcp.cat
 [Tidepool]
 %USB\VID_10C4&PID_85A7.DeviceDesc%=silabser.Dev, USB\VID_10C4&PID_85A7 ;Silicon Labs (e.g. VerioIQ)
 %USB\VID_22A3&PID_0047.DeviceDesc%=cdcacm.Dev, USB\VID_22A3&PID_0047   ;Windows CDC ACM (e.g. Dexcom)
+%USB\VID_0483&PID_5740.DeviceDesc%=cdcacm.Dev, USB\VID_0483&PID_5740
 %VID_0403&PID_6001.DeviceDesc%=FtdiPort.NT,FTDIBUS\COMPORT&VID_0403&PID_6001 ;FTDI devices
 %VID_0403&PID_6010.DeviceDesc%=FtdiPort.NT,FTDIBUS\COMPORT&VID_0403&PID_6010
 %VID_0403&PID_6011.DeviceDesc%=FtdiPort.NT,FTDIBUS\COMPORT&VID_0403&PID_6011
@@ -50,6 +51,7 @@ CatalogFile=tidepoolvcp.cat
 [Tidepool.NTamd64]
 %USB\VID_10C4&PID_85A7.DeviceDesc%=silabser.Dev, USB\VID_10C4&PID_85A7
 %USB\VID_22A3&PID_0047.DeviceDesc%=cdcacm.Dev, USB\VID_22A3&PID_0047
+%USB\VID_0483&PID_5740.DeviceDesc%=cdcacm.Dev, USB\VID_0483&PID_5740
 %VID_0403&PID_6001.DeviceDesc%=FtdiPort.NTamd64,FTDIBUS\COMPORT&VID_0403&PID_6001
 %VID_0403&PID_6010.DeviceDesc%=FtdiPort.NTamd64,FTDIBUS\COMPORT&VID_0403&PID_6010
 %VID_0403&PID_6011.DeviceDesc%=FtdiPort.NTamd64,FTDIBUS\COMPORT&VID_0403&PID_6011
@@ -338,6 +340,7 @@ MfgName="Tidepool"
 DESC="Driver Package - VCP Driver"
 Disk_Description="Tidepool Tidepool USB Driver Installation Disk"
 USB\VID_22A3&PID_0047.DeviceDesc="Tidepool USB Driver (CDC ACM chipset)"
+USB\VID_0483&PID_5740.DeviceDesc="Tidepool USB Driver (CDC ACM chipset)"
 USB\VID_10C4&PID_85A7.DeviceDesc="Tidepool USB Driver (SL chipset)"
 VID_0403&PID_6001.DeviceDesc="Tidepool USB Driver (FTDI chipset)"
 VID_0403&PID_6010.DeviceDesc="Tidepool USB Driver (FTDI chipset)"
