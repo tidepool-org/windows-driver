@@ -25,12 +25,12 @@ LicenseFile=tidepool_licence.rtf
 
 [Files]
 ; Place all x64 files here
-Source: "TidepoolUSBDriverSetup_x64.exe"; DestDir: "{tmp}\drivers"; Check: Is64BitInstallMode;
+Source: "TidepoolUSBDriver_x64.exe"; DestDir: "{tmp}\drivers"; Check: Is64BitInstallMode;
 Source: "amd64\*"; DestDir: "{tmp}\drivers\amd64"; Check: Is64BitInstallMode;
 Source: "x64\*"; DestDir: "{tmp}\drivers\x64"; Check: Is64BitInstallMode;
 
 ; Place all x86 files here, first one should be marked 'solidbreak'
-Source: "TidepoolUSBDriverSetup_x86.exe"; DestDir: "{tmp}\drivers"; Check: not Is64BitInstallMode; Flags: solidbreak
+Source: "TidepoolUSBDriver_x86.exe"; DestDir: "{tmp}\drivers"; Check: not Is64BitInstallMode; Flags: solidbreak
 Source: "i386\*"; DestDir: "{tmp}\drivers\i386"; Check: not Is64BitInstallMode;
 Source: "x86\*"; DestDir: "{tmp}\drivers\x86"; Check: not Is64BitInstallMode;
 
@@ -40,7 +40,7 @@ Source: "tidepoolvcp.inf"; DestDir: "{tmp}\drivers";
 Source: "dpinst.xml"; DestDir: "{tmp}\drivers";
 
 [Run]
-Filename: {tmp}\drivers\TidepoolUSBDriverSetup_x86.exe; Description: "32-bit Tidepool USB Driver Setup"; Check: not Is64BitInstallMode
-Filename: {tmp}\drivers\TidepoolUSBDriverSetup_x64.exe; Description: "64-bit Tidepool USB Driver Setup"; Check: Is64BitInstallMode
+Filename: {tmp}\drivers\TidepoolUSBDriver_x86.exe; Description: "32-bit Tidepool USB Driver Setup"; Check: not Is64BitInstallMode
+Filename: {tmp}\drivers\TidepoolUSBDriver_x64.exe; Description: "64-bit Tidepool USB Driver Setup"; Check: Is64BitInstallMode
 
 

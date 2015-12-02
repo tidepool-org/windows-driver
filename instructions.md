@@ -39,8 +39,8 @@ signtool sign /v /ac "DigiCert High Assurance EV Root CA.crt" /s my /n "Tidepool
 
 ## Sign setup.exe:
 - cd Output
-- rename setup.exe TidepoolUSBDriverSetup.exe
-- signtool sign /v /s my /n "Tidepool Project" /t http://timestamp.digicert.com TidepoolUSBDriverSetup.exe
+- rename setup.exe TidepoolUSBDriver.exe
+- signtool sign /v /s my /n "Tidepool Project" /t http://timestamp.digicert.com TidepoolUSBDriver.exe
 
 ## Notes
 
