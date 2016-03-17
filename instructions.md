@@ -32,6 +32,8 @@ signtool sign /v /ac "DigiCert High Assurance EV Root CA.crt" /s my /n "Tidepool
 	signtool verify /kp /v /c tidepoolvcp.cat x86\silabenm.sys
 	signtool verify /kp /v /c tidepoolvcp.cat amd64\tiusb.sys
 	signtool verify /kp /v /c tidepoolvcp.cat i386\tiusb.sys
+	signtool verify /kp /v /c tidepoolvcp.cat amd64\ser2pl64.sys
+	signtool verify /kp /v /c tidepoolvcp.cat i386\ser2pl.sys
 
 ## Run InnoSetup:
 - Double-click innosetup
