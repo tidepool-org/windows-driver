@@ -12,7 +12,8 @@ https://msdn.microsoft.com/en-us/windows/hardware/gg454513.aspx
 ## Steps
 
 ### Generate .cat for Windows XP, Vista, 7, 8 and 8.1:
-inf2cat /driver:. /os:7_X64,7_X86,8_X64,8_X86,6_3_X86,6_3_X64,Vista_X86,Vista_X64,XP_X86,XP_X64
+- Bump version number in .inf file
+- inf2cat /driver:. /os:7_X64,7_X86,8_X64,8_X86,6_3_X86,6_3_X64,Vista_X86,Vista_X64,XP_X86,XP_X64
 
 ### Install certificate:
 Double-click to install. You can verify it is installed by running `certmgr`.
@@ -28,8 +29,8 @@ signtool sign /v /ac "DigiCert High Assurance EV Root CA.crt" /s my /n "Tidepool
 
 	signtool verify /kp /v /c tidepoolvcp.cat amd64\ftser2k.sys
 	signtool verify /kp /v /c tidepoolvcp.cat i386\ftser2k.sys
-	signtool verify /kp /v /c tidepoolvcp.cat x64\silabenm.sys
-	signtool verify /kp /v /c tidepoolvcp.cat x86\silabenm.sys
+	signtool verify /kp /v /c tidepoolvcp.cat amd64\silabser.sys
+	signtool verify /kp /v /c tidepoolvcp.cat i386\silabser.sys
 	signtool verify /kp /v /c tidepoolvcp.cat amd64\tiusb.sys
 	signtool verify /kp /v /c tidepoolvcp.cat i386\tiusb.sys
 	signtool verify /kp /v /c tidepoolvcp.cat amd64\ser2pl64.sys
@@ -37,6 +38,7 @@ signtool sign /v /ac "DigiCert High Assurance EV Root CA.crt" /s my /n "Tidepool
 
 ## Run InnoSetup:
 - Double-click innosetup
+- Bump version number
 - Build -> Compile
 
 ## Sign setup.exe:

@@ -10,7 +10,7 @@
 ;    Copyright 2015, Tidepool
 ;
 ; Silicon Labs:
-;    Installation INF for Silicon Laboratories CP210x device using KDMF Version 1.9
+;    Installation INF for Silicon Laboratories CP210x device
 ;
 ; FTDI:
 ; USB serial port driver installation file for Windows 2000, XP, Server 2003, Vista, Server 2008,
@@ -30,8 +30,9 @@ DriverPackageDisplayName=%DESC%
 Class=Ports
 ClassGuid={4D36E978-E325-11CE-BFC1-08002BE10318}
 Provider=%Provider%
-DriverVer=03/17/2016,0.0.6.0
+DriverVer=04/08/2016,1.0.0.0
 CatalogFile=tidepoolvcp.cat
+PnpLockDown=1
 
 ; ================= Device section =====================
 
@@ -79,19 +80,17 @@ ServiceBinary  = %10%\system32\drivers\ftser2k.sys
 LoadOrderGroup = Base
 
 [silabser.Dev.NT]
-Include=msports.inf
-AddReg=silabser.AddReg,silabser.NT.AddReg
+AddReg=silabser.AddReg
 CopyFiles=silabser.Files.Ext
+FeatureScore=0x40
 
 [cdcacm.Dev.NT]
 Include=mdmcpq.inf
 Include=msports.inf
 CopyFiles=FakeModemCopyFileSection,SerialEnumerator.NT.Copy
-AddReg=DriverAddReg
+AddReg=cdcacm.Addreg
 
 [silabser.Dev.NT.Services]
-Include=msports.inf
-Addservice = silabenm,,silabenm.AddService
 Addservice = silabser,0x00000002,silabser.AddService
 
 [cdcacm.Dev.NT.Services]
@@ -99,21 +98,18 @@ Include=mdmcpq.inf
 AddService=usbser,0x00000002,UsbserService
 AddService=serenum,,SerenumService
 
+[UsbserService]
+ServiceType    = 1                  ; SERVICE_KERNEL_DRIVER
+StartType      = 3                  ; SERVICE_DEMAND_START
+ErrorControl   = 1                  ; SERVICE_ERROR_NORMAL
+ServiceBinary  = %12%\usbser.sys
+
 [silabser.AddService]
 DisplayName    = %silabser.SvcDesc%
 ServiceType    = 1                  ; SERVICE_KERNEL_DRIVER
 StartType      = 3                  ; SERVICE_DEMAND_START
 ErrorControl   = 1                  ; SERVICE_ERROR_NORMAL
 ServiceBinary  = %12%\silabser.sys
-LoadOrderGroup = Extended Base
-
-[silabenm.AddService]
-DisplayName    = %silabenm.SvcDesc%
-ServiceType    = 1                  ; SERVICE_KERNEL_DRIVER
-StartType      = 3                  ; SERVICE_DEMAND_START
-ErrorControl   = 1                  ; SERVICE_ERROR_NORMAL
-ServiceBinary  = %12%\silabenm.sys
-LoadOrderGroup = PNP Filter
 
 ; common registry entries 
 [silabser.AddReg]
@@ -122,39 +118,32 @@ HKR,,RateLimitPurgeMS, 0x10001, 0x64, 0x00, 0x00, 0x00
 HKR,,OverrideDefaultPortSettings, 0x10001, 01,00,00,00
 HKR,,InitialBaudRate, 0x10001, 00,C2,01,00		;115200 initial baud rate
 HKR,,InitialLineControl,, "8N1"				;8-bits, No parity, 1 stop bit
+HKR,,PortSubClass,1,01
+HKR,,EnumPropPages32,,"MsPorts.dll,SerialPortPropPageProvider"
 
 [cdcacm.AddReg]
 HKR,,EnumPropPages32,,"msports.dll,SerialPortPropPageProvider"
 HKR,,"LowerFilters",0x00010000,"usbser"
 HKR,,"UpperFilters",0x00010000,"serenum"
 
-[silabser.NT.AddReg]
-HKR,,PortSubClass,1,01
-HKR,,EnumPropPages32,,"MsPorts.dll,SerialPortPropPageProvider"
-
 [silabser.Dev.NT.HW]
 AddReg=silabser.Dev.NT.HW.AddReg
 
 [silabser.Dev.NT.HW.AddReg]
-HKR,,"UpperFilters",0x00010008,"silabenm"
 HKR,,"SelectiveSuspendTimeout",0x00010001,10000
 
 [silabser.Files.Ext]
 silabser.sys
-silabenm.sys
 
 [SourceDisksNames]
+1=%Disk_Description%,"tidepoolvcp.cat",,\x86
 2=%Disk_Description%,,,
 
-[SourceDisksNames.x86]
-1=%Disk_Description%,"silabser.sys",,\x86
-
 [SourceDisksNames.amd64]
-1=%Disk_Description%,"silabser.sys",,\x64
+1=%Disk_Description%,"tidepoolvcp.cat",,\x64
 
 [SourceDisksFiles]
-silabser.sys = 2,x86
-silabenm.sys = 2,x86
+silabser.sys = 2,i386
 ftser2k.sys=2,i386
 ftserui2.dll=2,i386
 ftcserco.dll =2,i386
@@ -162,10 +151,8 @@ tiusb.i51=2,i386
 tiusb.sys=2,i386
 ser2pl.sys=2,i386
 
-
 [SourceDisksFiles.amd64]
-silabser.sys = 2,x64
-silabenm.sys = 2,x64
+silabser.sys = 2,amd64
 ftser2k.sys=2,amd64
 ftserui2.dll=2,amd64
 ftcserco.dll = 2,amd64
@@ -175,7 +162,7 @@ ser2pl64.sys=2,amd64
 
 [DestinationDirs]
 Silabser.Files.Ext = 12
-FtdiPort.NT.Copy=10,system32\drivers
+FtdiPort.NT.Copy=10,system32\drivers 
 FtdiPort.NT.CopyUI=10,system32
 FtdiPort.NT.CopyCoInst=10,system32
 DefaultDestDir=12
@@ -248,39 +235,34 @@ HKR,,CoInstallers32,0x00010000,"ftcserco.Dll,FTCSERCoInstaller"
 ;-------------- SI Labs WDF Coinstaller installation
 
 [DestinationDirs]
-CoInstaller_CopyFiles = 11
+CoInstaller_CopyFiles.KMDF.1.11 = 11 ; windows\system32
 
 [silabser.Dev.NT.CoInstallers]
-AddReg=CoInstaller_AddReg
-CopyFiles=CoInstaller_CopyFiles
+AddReg=CoInstaller_AddReg.KMDF.1.11
+CopyFiles=CoInstaller_CopyFiles.KMDF.1.11
 
-[CoInstaller_CopyFiles]
-WdfCoinstaller01009.dll
+[silabser.Dev.NTamd64.CoInstallers]
+AddReg=CoInstaller_AddReg.KMDF.1.11
+CopyFiles=CoInstaller_CopyFiles.KMDF.1.11
+
+[CoInstaller_CopyFiles.KMDF.1.11]
+WdfCoInstaller01011.dll
 
 [SourceDisksFiles]
-WdfCoinstaller01009.dll=1
+WdfCoInstaller01011.dll=1
 
-[CoInstaller_AddReg]
-HKR,,CoInstallers32,0x00010000, "WdfCoinstaller01009.dll,WdfCoInstaller"
+[CoInstaller_AddReg.KMDF.1.11]
+HKR,,CoInstallers32,0x00010000, "WdfCoInstaller01011.dll,WdfCoInstaller"
 
 [silabser.Dev.NT.Wdf]
-KmdfService = silabser, silabser_wdfsect
-[silabser_wdfsect]
-KmdfLibraryVersion = 1.9
+KmdfService = silabser, silabser_wdfsect.1.11
 
-[UsbserService]
-ServiceType= 1
-StartType  = 3
-ErrorControl = 0
-ServiceBinary = %12%\usbser.sys
+[silabser.Dev.NTamd64.Wdf]
+KmdfService = silabser, silabser_wdfsect.1.11
 
-[SerenumService] 
-DisplayName    = %SerEnum.SvcDesc%
-ServiceType    = 1
-StartType      = 3
-ErrorControl   = 0
-ServiceBinary  = %12%\serenum.sys
-LoadOrderGroup = PNP Filter
+[SiLabser_wdfsect.1.11]
+KmdfLibraryVersion = 1.11
+
 
 ;-------------- TI WDF Coinstaller installation
 [TI.Uni.NT.CoInstallers]
@@ -376,7 +358,7 @@ AddReg=ComPort.HW.AddReg
 
 [ComPort.NTAMD64.Services]
 AddService = Ser2pl, 0x00000002, Serial_Service_Inst.NTAMD64
-AddService = Serenum,,Serenum_Service_Inst
+AddService = Serenum,,SerenumService
 
 [ComPort.NTAMD64.Copy]
 ser2pl64.sys
@@ -402,8 +384,8 @@ ErrorControl   = 1                  ; SERVICE_ERROR_NORMAL
 ServiceBinary  = %12%\ser2pl64.sys                            
 LoadOrderGroup = Base
 
-[Serenum_Service_Inst]
-DisplayName    = %SerEnum.SvcDescC%
+[SerenumService]
+DisplayName    = %SerEnum.SvcDesc%
 ServiceType    = 1               ; SERVICE_KERNEL_DRIVER
 StartType      = 3               ; SERVICE_DEMAND_START
 ErrorControl   = 1               ; SERVICE_ERROR_NORMAL
@@ -434,7 +416,6 @@ VID_067B&PID_2303.DeviceDesc="Tidepool USB Driver (Prolific chipset)"
 VID_067B&PID_2304.DeviceDesc="Tidepool USB Driver (Prolific chipset)"
 
 silabser.SvcDesc="Tidepool USB Driver"
-silabenm.SvcDesc="Tidepool USB Driver Serial Port Enumerator Driver"
 PortsClassName = "Ports (COM & LPT)"
 SvcDesc="Tidepool USB Driver (FTDI chipset)"
 SerEnum.SvcDesc="Serenum Filter Driver"
