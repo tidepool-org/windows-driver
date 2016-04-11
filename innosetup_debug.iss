@@ -6,7 +6,7 @@
 
 [Setup]
 AppName=Tidepool USB Driver
-AppVersion=1.0
+AppVersion=1.2
 DefaultDirName={tmp}
 DefaultGroupName=Tidepool
 ;UninstallDisplayIcon={app}\MyProg.exe
