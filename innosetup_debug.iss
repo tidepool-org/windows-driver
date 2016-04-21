@@ -6,7 +6,7 @@
 
 [Setup]
 AppName=Tidepool USB Driver
-AppVersion=1.2
+AppVersion=1.3
 DefaultDirName={tmp}
 DefaultGroupName=Tidepool
 ;UninstallDisplayIcon={app}\MyProg.exe
@@ -37,6 +37,8 @@ Source: "x86\*"; DestDir: "{tmp}\drivers\x86"; Check: not Is64BitInstallMode;
 ; Place all common files here, first one should be marked 'solidbreak'
 Source: "tidepoolvcp.cat"; DestDir: "{tmp}\drivers"; Flags:solidbreak
 Source: "tidepoolvcp.inf"; DestDir: "{tmp}\drivers";
+Source: "tidepoolhid.cat"; DestDir: "{tmp}\drivers";
+Source: "tidepoolhid.inf"; DestDir: "{tmp}\drivers";
 Source: "dpinst.xml"; DestDir: "{tmp}\drivers";
 
 [Run]

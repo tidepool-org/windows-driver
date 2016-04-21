@@ -23,18 +23,19 @@ https://www.digicert.com/code-signing/driver-signing-in-windows-using-signtool.h
 
 ### Sign using signtool:
 
-signtool sign /v /ac "DigiCert High Assurance EV Root CA.crt" /s my /n "Tidepool Project" /t http://timestamp.digicert.com tidepoolvcp.cat
+- signtool sign /v /ac "DigiCert High Assurance EV Root CA.crt" /s my /n "Tidepool Project" /t http://timestamp.digicert.com tidepoolvcp.cat
+- signtool sign /v /ac "DigiCert High Assurance EV Root CA.crt" /s my /n "Tidepool Project" /t http://timestamp.digicert.com tidepoolhid.cat
 
 ### Verify that drivers are correctly signed:
 
-	signtool verify /kp /v /c tidepoolvcp.cat amd64\ftser2k.sys
-	signtool verify /kp /v /c tidepoolvcp.cat i386\ftser2k.sys
-	signtool verify /kp /v /c tidepoolvcp.cat amd64\silabser.sys
-	signtool verify /kp /v /c tidepoolvcp.cat i386\silabser.sys
-	signtool verify /kp /v /c tidepoolvcp.cat amd64\tiusb.sys
-	signtool verify /kp /v /c tidepoolvcp.cat i386\tiusb.sys
-	signtool verify /kp /v /c tidepoolvcp.cat amd64\ser2pl64.sys
-	signtool verify /kp /v /c tidepoolvcp.cat i386\ser2pl.sys
+signtool verify /kp /v /c tidepoolvcp.cat amd64\ftser2k.sys
+signtool verify /kp /v /c tidepoolvcp.cat i386\ftser2k.sys
+signtool verify /kp /v /c tidepoolvcp.cat amd64\silabser.sys
+signtool verify /kp /v /c tidepoolvcp.cat i386\silabser.sys
+signtool verify /kp /v /c tidepoolvcp.cat amd64\tiusb.sys
+signtool verify /kp /v /c tidepoolvcp.cat i386\tiusb.sys
+signtool verify /kp /v /c tidepoolvcp.cat amd64\ser2pl64.sys
+signtool verify /kp /v /c tidepoolvcp.cat i386\ser2pl.sys
 
 ## Run InnoSetup:
 - Double-click innosetup
