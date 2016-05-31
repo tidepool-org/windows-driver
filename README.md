@@ -6,17 +6,19 @@ To sign the driver, make sure you have the specified requirements installed and 
 
 - [Inno Setup](http://www.jrsoftware.org/isdl.php)
 - [WDK](https://msdn.microsoft.com/en-us/windows/hardware/gg454513.aspx) (Required for `inf2cat` and `signtool`)
+- [DigiCert High Assurance EV Root CA certificate](https://www.digicert.com/CACerts/DigiCertHighAssuranceEVRootCA.crt)
 
 ## Steps
 
 ### Generate .cat for Windows XP, Vista, 7, 8 and 8.1:
 `inf2cat /driver:. /os:7_X64,7_X86,8_X64,8_X86,6_3_X86,6_3_X64,Vista_X86,Vista_X64,XP_X86,XP_X64`
 
-### Install certificate:
+### Install certificates:
 
 - Get the Tidepool certificate.
 - Double-click to install.
-- You can verify it is installed by running `certmgr`.
+- Also install the DigiCert High Assurance EV Root CA certificate downloaded above.
+- You can verify the certificates are installed by running `certmgr`.
 
 ### Sign using signtool:
 
