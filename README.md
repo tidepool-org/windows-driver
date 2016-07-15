@@ -47,4 +47,4 @@ To sign the driver, make sure you have the specified requirements installed and 
 - You must have administrator privileges to install drivers.
 - The DigiCert cross-certificate can also be downloaded from the [DigiCert website](
 https://www.digicert.com/code-signing/driver-signing-in-windows-using-signtool.htm#download_cross_certificate).
-- When you publish the new driver on the website, remember to also [whitelist][(https://submit.symantec.com/whitelist/isv/) the driver with Symantec.
+- When you publish the new driver on the website, remember to also [whitelist](https://submit.symantec.com/whitelist/isv/) the driver with Symantec.
