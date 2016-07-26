@@ -40,7 +40,7 @@ To sign the driver, make sure you have the specified requirements installed and 
 
 ## Sign setup.exe:
 - Rename `Output\setup.exe` to `Output\TidepoolUSBDriverSetup.exe`
-- `signtool sign /v /s my /n "Tidepool Project" /t http://timestamp.digicert.com Output\TidepoolUSBDriverSetup.exe`
+- `signtool sign /v /s my /n "Tidepool Project" /t http://timestamp.digicert.com Output\TidepoolUSBDriver.exe`
 
 ## Notes
 
