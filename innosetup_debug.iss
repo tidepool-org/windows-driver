@@ -6,7 +6,7 @@
 
 [Setup]
 AppName=Tidepool USB Driver
-AppVersion=1.3
+AppVersion=1.4
 DefaultDirName={tmp}
 DefaultGroupName=Tidepool
 ;UninstallDisplayIcon={app}\MyProg.exe
@@ -27,11 +27,13 @@ LicenseFile=tidepool_licence.rtf
 ; Place all x64 files here
 Source: "TidepoolUSBDriver_x64.exe"; DestDir: "{tmp}\drivers"; Check: Is64BitInstallMode;
 Source: "amd64\*"; DestDir: "{tmp}\drivers\amd64"; Check: Is64BitInstallMode;
+Source: "win7x64\*"; DestDir: "{tmp}\drivers\amd64"; Check: Is64BitInstallMode; OnlyBelowVersion: 6.2;
 Source: "x64\*"; DestDir: "{tmp}\drivers\x64"; Check: Is64BitInstallMode;
 
 ; Place all x86 files here, first one should be marked 'solidbreak'
 Source: "TidepoolUSBDriver_x86.exe"; DestDir: "{tmp}\drivers"; Check: not Is64BitInstallMode; Flags: solidbreak
 Source: "i386\*"; DestDir: "{tmp}\drivers\i386"; Check: not Is64BitInstallMode;
+Source: "win7x86\*"; DestDir: "{tmp}\drivers\i386"; Check: Is64BitInstallMode; OnlyBelowVersion: 6.2;
 Source: "x86\*"; DestDir: "{tmp}\drivers\x86"; Check: not Is64BitInstallMode;
 
 ; Place all common files here, first one should be marked 'solidbreak'
