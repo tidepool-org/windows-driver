@@ -11,7 +11,8 @@ To sign the driver, make sure you have the specified requirements installed and 
 ## Steps
 
 ### Generate .cat for Windows XP, Vista, 7, 8 and 8.1:
-`inf2cat /driver:. /os:7_X64,7_X86,8_X64,8_X86,6_3_X86,6_3_X64,Vista_X86,Vista_X64,XP_X86,XP_X64`
+- Bump version number in .inf file
+- `inf2cat /driver:. /os:7_X64,7_X86,8_X64,8_X86,6_3_X86,6_3_X64,Vista_X86,Vista_X64,XP_X86,XP_X64`
 
 ### Install certificates:
 
@@ -22,7 +23,8 @@ To sign the driver, make sure you have the specified requirements installed and 
 
 ### Sign using signtool:
 
-`signtool sign /v /ac "DigiCert High Assurance EV Root CA.crt" /s my /n "Tidepool Project" /t http://timestamp.digicert.com tidepoolvcp.cat`
+- `signtool sign /v /ac "DigiCertHighAssuranceEVRootCA.crt" /s my /n "Tidepool Project" /t http://timestamp.digicert.com tidepoolvcp.cat`
+- `signtool sign /v /ac "DigiCertHighAssuranceEVRootCA.crt" /s my /n "Tidepool Project" /t http://timestamp.digicert.com tidepoolhid.cat`
 
 ### Verify that drivers are correctly signed:
 
@@ -32,6 +34,8 @@ To sign the driver, make sure you have the specified requirements installed and 
 	signtool verify /kp /v /c tidepoolvcp.cat i386\silabenm.sys
 	signtool verify /kp /v /c tidepoolvcp.cat amd64\tiusb.sys
 	signtool verify /kp /v /c tidepoolvcp.cat i386\tiusb.sys
+	signtool verify /kp /v /c tidepoolvcp.cat amd64\ser2pl64.sys
+	signtool verify /kp /v /c tidepoolvcp.cat i386\ser2pl.sys
 
 ## Run InnoSetup:
 - Double-click `innosetup_debug`
