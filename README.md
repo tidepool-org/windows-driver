@@ -34,7 +34,7 @@ To sign the driver, make sure you have the specified requirements installed and 
 	signtool verify /kp /v /c tidepoolvcp.cat i386\tiusb.sys
 
 ## Run InnoSetup:
-- Double-click `innosetup`
+- Double-click `innosetup_debug`
 - Bump version number
 - Build -> Compile
 
