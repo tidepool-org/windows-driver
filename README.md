@@ -23,8 +23,8 @@ To sign the driver, make sure you have the specified requirements installed and 
 
 ### Sign using signtool:
 
-- `signtool sign /v /ac "DigiCertHighAssuranceEVRootCA.crt" /s my /n "Tidepool Project" /t http://timestamp.digicert.com tidepoolvcp.cat`
-- `signtool sign /v /ac "DigiCertHighAssuranceEVRootCA.crt" /s my /n "Tidepool Project" /t http://timestamp.digicert.com tidepoolhid.cat`
+- `signtool sign /v /ac "Digi Cert High Assurance EV Root CA.crt" /s my /n "Tidepool Project" /t http://timestamp.digicert.com tidepoolvcp.cat`
+- `signtool sign /v /ac "Digi Cert High Assurance EV Root CA.crt" /s my /n "Tidepool Project" /t http://timestamp.digicert.com tidepoolhid.cat`
 
 ### Verify that drivers are correctly signed:
 
