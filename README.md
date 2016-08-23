@@ -48,7 +48,7 @@ To build and sign the driver, check that you have the specified requirements ins
 
 ## Notes
 
-- This has only been tested on Windows 8.1.
+- The build process has only been tested on Windows 8.1.
 - If the drivers fail to install, make sure all devices are unplugged.
 - You must have administrator privileges to install drivers.
 - The DigiCert certificate can also be downloaded from the [DigiCert website](
