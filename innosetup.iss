@@ -17,7 +17,10 @@ LicenseFile=tidepool_licence.rtf
 SignTool=mycustom sign /n $qTidepool Project$q /t http://timestamp.digicert.com $f
 SetupIconFile=Tidepool_T_Icon.ico
 PrivilegesRequired=admin
+; require at least Windows 10
 MinVersion=10.0
+; it gets installed to a temporary directory that gets deleted afterwards
+DisableDirPage=yes
 
 
 [Files]
