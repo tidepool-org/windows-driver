@@ -1,5 +1,5 @@
 [Setup]
-AppName=Tidepool USB Driver
+AppName=Tidepool USB Driver Installation
 AppVersion=2.0.0
 OutputBaseFilename="Tidepool USB Driver Setup"
 DefaultDirName={tmp}
@@ -59,9 +59,9 @@ WizardLicense=Agreement
 [Run]
 Filename: "certutil.exe"; Parameters: "-addstore ""TrustedPublisher"" {tmp}\tidepool.cer"; Flags: waituntilterminated runhidden; \
     StatusMsg: "Adding trusted publisher..."
-Filename: "{tmp}\drivers\TidepoolUSBDriver_x86.exe /q"; Description: "32-bit Tidepool USB Driver Setup"; Flags: skipifnotsilent; Check: not Is64BitInstallMode
+Filename: "{tmp}\drivers\TidepoolUSBDriver_x86.exe"; Parameters: "/q"; Description: "32-bit Tidepool USB Driver Setup"; Flags: skipifnotsilent; Check: not Is64BitInstallMode
 Filename: "{tmp}\drivers\TidepoolUSBDriver_x86.exe"; Description: "32-bit Tidepool USB Driver Setup"; Flags: skipifsilent; Check: not Is64BitInstallMode
-Filename: "{tmp}\drivers\TidepoolUSBDriver_x64.exe /q"; Description: "64-bit Tidepool USB Driver Setup"; Flags: skipifnotsilent; Check: Is64BitInstallMode
+Filename: "{tmp}\drivers\TidepoolUSBDriver_x64.exe"; Parameters: "/q"; Description: "64-bit Tidepool USB Driver Setup"; Flags: skipifnotsilent; Check: Is64BitInstallMode
 Filename: "{tmp}\drivers\TidepoolUSBDriver_x64.exe"; Description: "64-bit Tidepool USB Driver Setup"; Flags: skipifsilent; Check: Is64BitInstallMode
 
 
