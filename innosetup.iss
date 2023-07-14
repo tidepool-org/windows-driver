@@ -32,7 +32,8 @@ Source: "x64\*"; DestDir: "{tmp}\drivers\x64"; Check: Is64BitInstallMode;
 ; Place all x86 files here, first one should be marked 'solidbreak'
 ; Add  'Parameters: "/q";' for quiet mode
 Source: "TidepoolUSBDriver_x86.exe"; DestDir: "{tmp}\drivers"; Check: not Is64BitInstallMode; Flags: solidbreak
-Source: "i386\*"; DestDir: "{tmp}\drivers\i386"; Check: not Is64BitInstallMode;
+; some of the i386 files are needed for 64-bit too
+Source: "i386\*"; DestDir: "{tmp}\drivers\i386";
 Source: "x86\*"; DestDir: "{tmp}\drivers\x86"; Check: not Is64BitInstallMode;
 
 ; Place all common files here, first one should be marked 'solidbreak'
