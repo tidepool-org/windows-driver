@@ -5,26 +5,19 @@ To build and sign the driver, check that you have the specified requirements ins
 ## Requirements
 
 - [Inno Setup](http://www.jrsoftware.org/isdl.php)
-- [WDK](https://msdn.microsoft.com/en-us/windows/hardware/gg454513.aspx) (Required for `inf2cat` and `signtool`)
-- [DigiCert High Assurance EV Root CA certificate](https://www.digicert.com/CACerts/DigiCertHighAssuranceEVRootCA.crt)
+- [WDK](https://docs.microsoft.com/windows-hardware/drivers/download-the-wdk) (Required for `signtool`)
 
 ## Steps
 
-### Generate the .cat files from the two .inf files:
-- Bump version number in .inf file
-- `inf2cat /driver:. /os:7_X64,7_X86,8_X64,8_X86,6_3_X86,6_3_X64,Vista_X86,Vista_X64,XP_X86,XP_X64`
+Use the Developer Command Prompt for Visual Studio instead of the regular Command Prompt to make sure all the paths are set up correctly:
 
-### Install certificates:
+- `cd <uploader_directory>resources\win`
+- `makecab /f TidepoolUSBDriver.ddf`
+- `signtool sign /v /tr http://timestamp.digicert.com /td sha256 /fd sha256 /s my /n "Tidepool Project" /sha1 <tidepool_cert_thumbprint> disk1\TidepoolUSBDriver.cab` (You'll need the hardware token and the password in 1Password - if the SafeNet client does not prompt you for a password, you're not using the right certificate. Also replace the thumbprint/serial with that of the certificate you're using, and remember to install the root certs on the token when you're doing this for the first time.)
 
-- Get the Tidepool certificate.
-- Double-click to install.
-- Also install the DigiCert High Assurance EV Root CA certificate downloaded above, as it's needed to cross-sign the Tidepool certificate.
-- You can verify the certificates are installed by running `certmgr`.
+This `.cab` can then be submitted to the hardware dashboard at: https://partner.microsoft.com/en-us/dashboard/hardware/ (search 1Password for "Microsoft Hardware Dashboard" login details). Select all non-ARM64 options for `Requested Signatures` when submitting. If it's the first time you're using the certificate, you need to [add it to Partner Center](https://docs.microsoft.com/en-us/windows-hardware/drivers/dashboard/update-a-code-signing-certificate).
 
-### Sign both the .cat files using signtool:
-
-- `signtool sign /v /ac "DigiCertHighAssuranceEVRootCA.crt" /s my /n "Tidepool Project" /t http://timestamp.digicert.com tidepoolvcp.cat`
-- `signtool sign /v /ac "DigiCertHighAssuranceEVRootCA.crt" /s my /n "Tidepool Project" /t http://timestamp.digicert.com tidepoolhid.cat`
+Download the signed drivers from the hardware portal and replace the existing drivers the `resources/win/` directory.
 
 ### Verify that drivers are correctly signed:
 
@@ -36,21 +29,18 @@ To build and sign the driver, check that you have the specified requirements ins
 	signtool verify /kp /v /c tidepoolvcp.cat i386\tiusb.sys
 	signtool verify /kp /v /c tidepoolvcp.cat amd64\ser2pl64.sys
 	signtool verify /kp /v /c tidepoolvcp.cat i386\ser2pl.sys
-
+	signtool verify /kp /v /c phdc_driver.cat amd64\wdfcoinstaller01009.dll
+	
 ## Run InnoSetup:
 - Double-click `innosetup`
 - Bump version number
 - Build -> Compile
 
-## Sign setup.exe:
-- Rename `Output\setup.exe` to `Output\TidepoolUSBDriverSetup.exe`
-- `signtool sign /v /s my /n "Tidepool Project" /t http://timestamp.digicert.com Output\TidepoolUSBDriver.exe`
-
 ## Notes
 
-- The build process has only been tested on Windows 8.1.
 - If the drivers fail to install, make sure all devices are unplugged.
 - You must have administrator privileges to install drivers.
-- The DigiCert certificate can also be downloaded from the [DigiCert website](
-https://www.digicert.com/code-signing/driver-signing-in-windows-using-signtool.htm#download_cross_certificate).
-- When you publish the new driver on the website, remember to also [whitelist](https://submit.symantec.com/whitelist/isv/) the driver with Symantec.
+
+For more details on attestation signing, see:
+- https://www.davidegrayson.com/signing/
+- https://docs.microsoft.com/en-gb/windows-hardware/drivers/dashboard/attestation-signing-a-kernel-driver-for-public-release#test-your-driver-on-windows-10
