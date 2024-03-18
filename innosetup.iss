@@ -57,7 +57,7 @@ Source: "tidepool.cer"; DestDir: "{tmp}";
 WizardLicense=Agreement
 
 [Registry]
-Root: HKLM; Subkey:"Software\Google\Chrome\NativeMessagingHosts\org.tidepool.uploader-helper"; ValueType: string; ValueName: ""; ValueData:"{commonpf}\Tidepool\manifest.json"; Flags: uninsdeletekey 
+Root: HKLM; Subkey:"Software\Google\Chrome\NativeMessagingHosts\org.tidepool.uploader_helper"; ValueType: string; ValueName: ""; ValueData:"{commonpf}\Tidepool\manifest.json"; Flags: uninsdeletekey 
 
 [Run]
 Filename: "certutil.exe"; Parameters: "-addstore ""TrustedPublisher"" {tmp}\tidepool.cer"; Flags: waituntilterminated runhidden; \
