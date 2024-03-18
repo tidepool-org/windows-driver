@@ -14,7 +14,7 @@ SolidCompression=yes
 ; On all other architectures it will install in "32-bit mode".
 ArchitecturesInstallIn64BitMode=x64
 LicenseFile=tidepool_licence.rtf
-SignTool=mycustom sign /n $qTidepool Project$q /t http://timestamp.digicert.com $f
+SignTool=mycustom sign /a /n $qTidepool Project$q /t http://timestamp.digicert.com $f
 SetupIconFile=Tidepool_T_Icon.ico
 PrivilegesRequired=admin
 ; require at least Windows 10
@@ -28,7 +28,7 @@ DisableDirPage=yes
 Source: "TidepoolUSBDriver_x64.exe"; DestDir: "{tmp}\drivers"; Check: Is64BitInstallMode;
 Source: "amd64\*"; DestDir: "{tmp}\drivers\amd64"; Check: Is64BitInstallMode;
 Source: "x64\*"; DestDir: "{tmp}\drivers\x64"; Check: Is64BitInstallMode;
-Source: "helper\*"; DestDir: "{pf}\Tidepool"; Check: Is64BitInstallMode;
+Source: "helper\*"; DestDir: "{commonpf}\Tidepool"; Check: Is64BitInstallMode;
 
 ; Place all x86 files here, first one should be marked 'solidbreak'
 ; Add  'Parameters: "/q";' for quiet mode
@@ -57,7 +57,7 @@ Source: "tidepool.cer"; DestDir: "{tmp}";
 WizardLicense=Agreement
 
 [Registry]
-Root: HKLM; Subkey:"Software\Google\Chrome\NativeMessagingHosts\org.tidepool.uploader-helper" ValueType: string; ValueName: ""; ValueData:"{pf}\Tidepool\manifest.json"; Flags: uninsdeletekey 
+Root: HKLM; Subkey:"Software\Google\Chrome\NativeMessagingHosts\org.tidepool.uploader-helper"; ValueType: string; ValueName: ""; ValueData:"{commonpf}\Tidepool\manifest.json"; Flags: uninsdeletekey 
 
 [Run]
 Filename: "certutil.exe"; Parameters: "-addstore ""TrustedPublisher"" {tmp}\tidepool.cer"; Flags: waituntilterminated runhidden; \
