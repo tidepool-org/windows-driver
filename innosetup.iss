@@ -28,6 +28,7 @@ DisableDirPage=yes
 Source: "TidepoolUSBDriver_x64.exe"; DestDir: "{tmp}\drivers"; Check: Is64BitInstallMode;
 Source: "amd64\*"; DestDir: "{tmp}\drivers\amd64"; Check: Is64BitInstallMode;
 Source: "x64\*"; DestDir: "{tmp}\drivers\x64"; Check: Is64BitInstallMode;
+Source: "helper\*"; DestDir: "{pf}\Tidepool"; Check: Is64BitInstallMode;
 
 ; Place all x86 files here, first one should be marked 'solidbreak'
 ; Add  'Parameters: "/q";' for quiet mode
@@ -52,10 +53,11 @@ Source: "webusb.inf"; DestDir: "{tmp}\drivers";
 Source: "dpinst.xml"; DestDir: "{tmp}\drivers";
 Source: "tidepool.cer"; DestDir: "{tmp}";
 
-
 [Messages]
 WizardLicense=Agreement
 
+[Registry]
+Root: HKLM; Subkey:"Software\Google\Chrome\NativeMessagingHosts\org.tidepool.uploader-helper" ValueType: string; ValueName: ""; ValueData:"{pf}\Tidepool\manifest.json"; Flags: uninsdeletekey 
 
 [Run]
 Filename: "certutil.exe"; Parameters: "-addstore ""TrustedPublisher"" {tmp}\tidepool.cer"; Flags: waituntilterminated runhidden; \
