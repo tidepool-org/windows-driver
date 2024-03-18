@@ -9,9 +9,8 @@ To build and sign the driver, check that you have the specified requirements ins
 
 ## Steps
 
-Use the Developer Command Prompt for Visual Studio instead of the regular Command Prompt to make sure all the paths are set up correctly:
+Use the Developer Command Prompt for Visual Studio instead of the regular Command Prompt to make sure all the paths are set up correctly. In the `windows-driver` folder:
 
-- `cd <uploader_directory>resources\win`
 - `makecab /f TidepoolUSBDriver.ddf`
 - `signtool sign /v /tr http://timestamp.digicert.com /td sha256 /fd sha256 /s my /n "Tidepool Project" /sha1 <tidepool_cert_thumbprint> disk1\TidepoolUSBDriver.cab` (You'll need the hardware token and the password in 1Password - if the SafeNet client does not prompt you for a password, you're not using the right certificate. Also replace the thumbprint/serial with that of the certificate you're using, and remember to install the root certs on the token when you're doing this for the first time.)
 
