@@ -16,7 +16,7 @@ Use the Developer Command Prompt for Visual Studio instead of the regular Comman
 
 This `.cab` can then be submitted to the hardware dashboard at: https://partner.microsoft.com/en-us/dashboard/hardware/ (search 1Password for "Microsoft Hardware Dashboard" login details). Select all non-ARM64 options for `Requested Signatures` when submitting. If it's the first time you're using the certificate, you need to [add it to Partner Center](https://docs.microsoft.com/en-us/windows-hardware/drivers/dashboard/update-a-code-signing-certificate).
 
-Download the signed drivers from the hardware portal and replace the existing drivers the `resources/win/` directory.
+Download the signed drivers from the hardware portal and replace the existing drivers the `windows-driver` folder.
 
 ### Verify that drivers are correctly signed:
 
