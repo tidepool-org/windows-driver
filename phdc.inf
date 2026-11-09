@@ -8,8 +8,9 @@ Signature = "$Windows NT$"
 Class = PHDC
 ClassGUID = {182A3B42-D570-4066-8D13-C72202B40D78}
 Provider = %Manufacturer%
-DriverVer = 09/19/2024, 4.0.0.0
+DriverVer = 11/09/2026, 4.0.0.1
 CatalogFile = phdc_driver.cat
+PnpLockdown = 1
 
 ; ================== Class section ==================
 
@@ -54,15 +55,7 @@ Needs=WINUSB.NT
 ;[2]
 [USB_Install.Services]
 Include=winusb.inf
-AddService=WinUSB,0x00000002,WinUSB_ServiceInstall
-
-;[3]
-[WinUSB_ServiceInstall]
-DisplayName     = %WinUSB_SvcDesc%
-ServiceType     = 1
-StartType       = 3
-ErrorControl    = 1
-ServiceBinary   = %12%\winusb.sys
+Needs=WINUSB.NT.Services
 
 ;[4]
 [USB_Install.Wdf]
@@ -119,6 +112,5 @@ USB\ACGuideMe.DeviceDesc="ACCU-CHEK Guide Me"
 USB\ACInstant.DeviceDesc="ACCU-CHEK Instant"
 USB\ReliOnPlatinum.DeviceDesc="ReliOn Platinum"
 USB\ACGuideLink.DeviceDesc="ACCU-CHEK Guide Link"
-WinUSB_SvcDesc="WinUSB Service"
 DISK_NAME="PHDC Driver Install Disk"
 ClassName="PHDC"
