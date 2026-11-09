@@ -41,6 +41,7 @@ ClassGuid={4D36E978-E325-11CE-BFC1-08002BE10318}
 Provider=%Provider%
 DriverVer=11/09/2026,4.0.0.1
 CatalogFile=tidepoolvcp.cat
+PnpLockdown=1
 
 ; ================= Device section =====================
 
