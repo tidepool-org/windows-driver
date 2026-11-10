@@ -139,12 +139,16 @@ silabser.sys = 2,i386
 tiusb.i51=2,i386
 tiusb.sys=2,i386
 ser2pl.sys=2,i386
+WdfCoInstaller01011.dll=1
+WdfCoInstaller01009.dll=1
 
 [SourceDisksFiles.amd64]
 silabser.sys = 2,amd64
 tiusb.i51=2,amd64
 tiusb.sys=2,amd64
 ser2pl64.sys=2,amd64
+WdfCoInstaller01011.dll=1
+WdfCoInstaller01009.dll=1
 
 [DestinationDirs]
 Silabser.Files.Ext = 12
@@ -168,10 +172,6 @@ CopyFiles=CoInstaller_CopyFiles.KMDF.1.11
 
 [CoInstaller_CopyFiles.KMDF.1.11]
 WdfCoInstaller01011.dll
-
-[SourceDisksFiles]
-WdfCoInstaller01011.dll=1
-WdfCoInstaller01009.dll=1
 
 [CoInstaller_AddReg.KMDF.1.11]
 HKR,,CoInstallers32,0x00010000, "WdfCoInstaller01011.dll,WdfCoInstaller"

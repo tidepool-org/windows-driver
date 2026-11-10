@@ -32,7 +32,6 @@ amd64\ser2pl64.sys
 amd64\silabser.sys
 amd64\tiusb.i51
 amd64\tiusb.sys
-amd64\WdfCoInstaller01009.dll
 .Set DestinationDir=win10\x64
 x64\WdfCoInstaller01009.dll
 x64\WdfCoInstaller01011.dll
