@@ -2,3 +2,5 @@
 *.exe
 !helper.exe
 htm/
+disk1/
+/setup.*
