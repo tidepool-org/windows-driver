@@ -84,29 +84,18 @@ Addservice = silabser,0x00000002,silabser.AddService
 [silabser.NTamd64.Services]
 Addservice = silabser,0x00000002,silabser.AddService
 
+; CDC ACM devices use the inbox usbser.inf (Windows 10+)
 [cdcacm.Dev.NT]
-Include=mdmcpq.inf
-Include=msports.inf
-AddReg=cdcacm.Addreg
+Include=usbser.inf
+Needs=UsbSerial_Install.NT
+
+[cdcacm.Dev.NT.HW]
+Include=usbser.inf
+Needs=UsbSerial_Install.NT.Hw
 
 [cdcacm.Dev.NT.Services]
-Include=mdmcpq.inf
-AddService=usbser,0x00000002,UsbserService
-AddService=serenum,,SerenumService
-
-[SerenumService]
-DisplayName    = %SerEnum.SvcDesc%
-ServiceType    = 1               ; SERVICE_KERNEL_DRIVER
-StartType      = 3               ; SERVICE_DEMAND_START
-ErrorControl   = 1               ; SERVICE_ERROR_NORMAL
-ServiceBinary  = %12%\serenum.sys
-LoadOrderGroup = PNP Filter
-
-[UsbserService]
-ServiceType    = 1                  ; SERVICE_KERNEL_DRIVER
-StartType      = 3                  ; SERVICE_DEMAND_START
-ErrorControl   = 1                  ; SERVICE_ERROR_NORMAL
-ServiceBinary  = %12%\usbser.sys
+Include=usbser.inf
+Needs=UsbSerial_Install.NT.Services
 
 [silabser.AddService]
 DisplayName    = %silabser.SvcDesc%
@@ -124,11 +113,6 @@ HKR,,InitialBaudRate, 0x10001, 00,C2,01,00		;115200 initial baud rate
 HKR,,InitialLineControl,, "8N1"				;8-bits, No parity, 1 stop bit
 HKR,,PortSubClass,1,01
 HKR,,EnumPropPages32,,"MsPorts.dll,SerialPortPropPageProvider"
-
-[cdcacm.AddReg]
-HKR,,EnumPropPages32,,"msports.dll,SerialPortPropPageProvider"
-HKR,,"LowerFilters",0x00010000,"usbser"
-HKR,,"UpperFilters",0x00010000,"serenum"
 
 [silabser.NTx86.HW]
 AddReg=silabser.HW.AddReg
@@ -333,7 +317,6 @@ VID_067B&PID_2304.DeviceDesc="Tidepool USB Driver (Prolific chipset)"
 
 silabser.SvcDesc="Tidepool USB Driver (SILabs chipset)"
 PortsClassName = "Ports (COM & LPT)"
-SerEnum.SvcDesc="Serenum Filter Driver"
 TI.SvcDesc="TI USB Cable Driver"
 Serial.SVCDESC  = "Tidepool USB Driver (Prolific chipset)"
 
