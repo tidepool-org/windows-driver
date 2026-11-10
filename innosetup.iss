@@ -51,7 +51,6 @@ Source: "phdc.inf"; DestDir: "{tmp}\drivers";
 Source: "winusbinstallation.cat"; DestDir: "{tmp}\drivers";
 Source: "webusb.inf"; DestDir: "{tmp}\drivers";
 Source: "dpinst.xml"; DestDir: "{tmp}\drivers";
-Source: "tidepool.cer"; DestDir: "{tmp}";
 
 [Messages]
 WizardLicense=Agreement
@@ -60,8 +59,6 @@ WizardLicense=Agreement
 Root: HKLM; Subkey:"Software\Google\Chrome\NativeMessagingHosts\org.tidepool.uploader_helper"; ValueType: string; ValueName: ""; ValueData:"{commonpf}\Tidepool\manifest.json"; Flags: uninsdeletekey 
 
 [Run]
-Filename: "certutil.exe"; Parameters: "-addstore ""TrustedPublisher"" {tmp}\tidepool.cer"; Flags: waituntilterminated runhidden; \
-    StatusMsg: "Adding trusted publisher..."
 Filename: "{tmp}\drivers\TidepoolUSBDriver_x86.exe"; Parameters: "/q"; Description: "32-bit Tidepool USB Driver Setup"; Flags: skipifnotsilent; Check: not Is64BitInstallMode
 Filename: "{tmp}\drivers\TidepoolUSBDriver_x86.exe"; Description: "32-bit Tidepool USB Driver Setup"; Flags: skipifsilent; Check: not Is64BitInstallMode
 Filename: "{tmp}\drivers\TidepoolUSBDriver_x64.exe"; Parameters: "/q"; Description: "64-bit Tidepool USB Driver Setup"; Flags: skipifnotsilent; Check: Is64BitInstallMode

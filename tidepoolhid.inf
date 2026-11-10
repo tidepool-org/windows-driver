@@ -23,8 +23,9 @@ Signature   ="$WINDOWS NT$"
 Class       =HIDClass
 ClassGuid   ={745a17a0-74d3-11d0-b6fe-00a0c90f57da}
 Provider    =%VendorName%
-DriverVer   =04/21/2016,1.3.0.0
+DriverVer   =11/09/2026,1.3.0.1
 CatalogFile =tidepoolhid.cat
+PnpLockdown =1
 
 ; ================= Class section =====================
 [ControlFlags]

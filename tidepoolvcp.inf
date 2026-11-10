@@ -39,8 +39,9 @@ DriverPackageDisplayName=%DESC%
 Class=Ports
 ClassGuid={4D36E978-E325-11CE-BFC1-08002BE10318}
 Provider=%Provider%
-DriverVer=02/27/2023,4.0.0.0
+DriverVer=11/09/2026,4.0.0.1
 CatalogFile=tidepoolvcp.cat
+PnpLockdown=1
 
 ; ================= Device section =====================
 
@@ -83,29 +84,18 @@ Addservice = silabser,0x00000002,silabser.AddService
 [silabser.NTamd64.Services]
 Addservice = silabser,0x00000002,silabser.AddService
 
+; CDC ACM devices use the inbox usbser.inf (Windows 10+)
 [cdcacm.Dev.NT]
-Include=mdmcpq.inf
-Include=msports.inf
-AddReg=cdcacm.Addreg
+Include=usbser.inf
+Needs=UsbSerial_Install.NT
+
+[cdcacm.Dev.NT.HW]
+Include=usbser.inf
+Needs=UsbSerial_Install.NT.Hw
 
 [cdcacm.Dev.NT.Services]
-Include=mdmcpq.inf
-AddService=usbser,0x00000002,UsbserService
-AddService=serenum,,SerenumService
-
-[SerenumService]
-DisplayName    = %SerEnum.SvcDesc%
-ServiceType    = 1               ; SERVICE_KERNEL_DRIVER
-StartType      = 3               ; SERVICE_DEMAND_START
-ErrorControl   = 1               ; SERVICE_ERROR_NORMAL
-ServiceBinary  = %12%\serenum.sys
-LoadOrderGroup = PNP Filter
-
-[UsbserService]
-ServiceType    = 1                  ; SERVICE_KERNEL_DRIVER
-StartType      = 3                  ; SERVICE_DEMAND_START
-ErrorControl   = 1                  ; SERVICE_ERROR_NORMAL
-ServiceBinary  = %12%\usbser.sys
+Include=usbser.inf
+Needs=UsbSerial_Install.NT.Services
 
 [silabser.AddService]
 DisplayName    = %silabser.SvcDesc%
@@ -123,11 +113,6 @@ HKR,,InitialBaudRate, 0x10001, 00,C2,01,00		;115200 initial baud rate
 HKR,,InitialLineControl,, "8N1"				;8-bits, No parity, 1 stop bit
 HKR,,PortSubClass,1,01
 HKR,,EnumPropPages32,,"MsPorts.dll,SerialPortPropPageProvider"
-
-[cdcacm.AddReg]
-HKR,,EnumPropPages32,,"msports.dll,SerialPortPropPageProvider"
-HKR,,"LowerFilters",0x00010000,"usbser"
-HKR,,"UpperFilters",0x00010000,"serenum"
 
 [silabser.NTx86.HW]
 AddReg=silabser.HW.AddReg
@@ -154,12 +139,16 @@ silabser.sys = 2,i386
 tiusb.i51=2,i386
 tiusb.sys=2,i386
 ser2pl.sys=2,i386
+WdfCoInstaller01011.dll=1
+WdfCoInstaller01009.dll=1
 
 [SourceDisksFiles.amd64]
 silabser.sys = 2,amd64
 tiusb.i51=2,amd64
 tiusb.sys=2,amd64
 ser2pl64.sys=2,amd64
+WdfCoInstaller01011.dll=1
+WdfCoInstaller01009.dll=1
 
 [DestinationDirs]
 Silabser.Files.Ext = 12
@@ -183,10 +172,6 @@ CopyFiles=CoInstaller_CopyFiles.KMDF.1.11
 
 [CoInstaller_CopyFiles.KMDF.1.11]
 WdfCoInstaller01011.dll
-
-[SourceDisksFiles]
-WdfCoInstaller01011.dll=1
-WdfCoInstaller01009.dll=1
 
 [CoInstaller_AddReg.KMDF.1.11]
 HKR,,CoInstallers32,0x00010000, "WdfCoInstaller01011.dll,WdfCoInstaller"
@@ -332,7 +317,6 @@ VID_067B&PID_2304.DeviceDesc="Tidepool USB Driver (Prolific chipset)"
 
 silabser.SvcDesc="Tidepool USB Driver (SILabs chipset)"
 PortsClassName = "Ports (COM & LPT)"
-SerEnum.SvcDesc="Serenum Filter Driver"
 TI.SvcDesc="TI USB Cable Driver"
 Serial.SVCDESC  = "Tidepool USB Driver (Prolific chipset)"
 

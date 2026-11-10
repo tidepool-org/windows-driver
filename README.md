@@ -20,15 +20,17 @@ Download the signed drivers from the hardware portal and replace the existing dr
 
 ### Verify that drivers are correctly signed:
 
-	signtool verify /kp /v /c tidepoolvcp.cat amd64\ftser2k.sys
-	signtool verify /kp /v /c tidepoolvcp.cat i386\ftser2k.sys
+	signtool verify /kp /v /c ftdiport.cat amd64\ftser2k.sys
+	signtool verify /kp /v /c ftdiport.cat i386\ftser2k.sys
+	signtool verify /kp /v /c ftdibus.cat amd64\ftdibus.sys
+	signtool verify /kp /v /c ftdibus.cat i386\ftdibus.sys
 	signtool verify /kp /v /c tidepoolvcp.cat amd64\silabser.sys
 	signtool verify /kp /v /c tidepoolvcp.cat i386\silabser.sys
 	signtool verify /kp /v /c tidepoolvcp.cat amd64\tiusb.sys
 	signtool verify /kp /v /c tidepoolvcp.cat i386\tiusb.sys
 	signtool verify /kp /v /c tidepoolvcp.cat amd64\ser2pl64.sys
 	signtool verify /kp /v /c tidepoolvcp.cat i386\ser2pl.sys
-	signtool verify /kp /v /c phdc_driver.cat amd64\wdfcoinstaller01009.dll
+	signtool verify /kp /v /c phdc_driver.cat x64\WdfCoInstaller01009.dll
 	
 ## Run InnoSetup:
 - Double-click `innosetup`
